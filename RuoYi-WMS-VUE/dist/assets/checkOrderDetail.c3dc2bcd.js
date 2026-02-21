@@ -1,0 +1,1 @@
+import{L as r}from"./index.65e68135.js";function l(e){return r({url:"/wms/checkOrderDetail/list",method:"get",params:e})}function i(e){return r({url:"/wms/checkOrderDetail/"+e,method:"delete"})}export{i as d,l};
