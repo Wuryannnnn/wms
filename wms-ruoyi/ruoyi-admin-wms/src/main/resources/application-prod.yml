@@ -1,0 +1,57 @@
+--- # 数据源配置
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    dynamic:
+      # 关闭 p6spy 性能分析（生产环境）
+      p6spy: false
+      primary: master
+      strict: true
+      datasource:
+        master:
+          type: ${spring.datasource.type}
+          driverClassName: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://mysql:3306/ry-vue?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=GMT%2B8&autoReconnect=true&rewriteBatchedStatements=true
+          username: root
+          password: wms123456
+      hikari:
+        maxPoolSize: 20
+        minIdle: 10
+        connectionTimeout: 30000
+        validationTimeout: 5000
+        idleTimeout: 600000
+        maxLifetime: 1800000
+        keepaliveTime: 30000
+
+--- # redis 配置
+spring.data:
+  redis:
+    host: redis
+    port: 6379
+    database: 0
+    timeout: 10s
+    ssl.enabled: false
+
+redisson:
+  keyPrefix:
+  threads: 4
+  nettyThreads: 8
+  singleServerConfig:
+    clientName: TheInfiniteCafe
+    connectionMinimumIdleSize: 8
+    connectionPoolSize: 32
+    idleConnectionTimeout: 10000
+    timeout: 3000
+    subscriptionConnectionPoolSize: 50
+
+--- # mail 邮件发送（生产环境默认关闭）
+mail:
+  enabled: false
+
+--- # sms 短信（生产环境默认关闭）
+sms:
+  alibaba:
+    requestUrl: dysmsapi.aliyuncs.com
+    accessKeyId: xxxxxxx
+    accessKeySecret: xxxxxxx
+    signature: 测试

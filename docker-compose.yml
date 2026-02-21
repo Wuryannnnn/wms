@@ -1,0 +1,73 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: wms-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: wms123456
+      MYSQL_DATABASE: ry-vue
+      MYSQL_CHARSET: utf8mb4
+      MYSQL_COLLATION: utf8mb4_general_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./wms-ruoyi/script/sql/wms.sql:/docker-entrypoint-initdb.d/wms.sql:ro
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci
+    networks:
+      - wms-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pwms123456"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: wms-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - wms-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./wms-ruoyi/ruoyi-admin-wms
+      dockerfile: Dockerfile
+    container_name: wms-backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - wms-net
+
+  frontend:
+    build:
+      context: ./RuoYi-WMS-VUE
+      dockerfile: Dockerfile
+    container_name: wms-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - wms-net
+
+volumes:
+  mysql-data:
+
+networks:
+  wms-net:
+    driver: bridge
