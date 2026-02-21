@@ -77,12 +77,9 @@ CREATE TABLE `sys_config`  (
   PRIMARY KEY (`config_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '参数配置表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of sys_config
--- ----------------------------
 INSERT INTO `sys_config` VALUES (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', '2024-06-13 16:06:37', '', NULL, '蓝色 skin-blue、绿色 skin-green、紫色 skin-purple、红色 skin-red、黄色 skin-yellow');
 INSERT INTO `sys_config` VALUES (2, '用户管理-账号初始密码', 'sys.user.initPassword', '123456', 'Y', 'admin', '2024-06-13 16:06:37', '', NULL, '初始化密码 123456');
-INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-light', 'Y', 'admin', '2024-06-13 16:06:37', 'admin', '2024-07-16 11:25:33', '深色主题theme-dark，浅色主题theme-light');
+INSERT INTO `sys_config` VALUES (3, '主框架页-侧边栏主题', 'sys.index.sideTheme', 'theme-light', 'Y', 'admin', '2024-06-13 16:06:37', '', NULL, '深色主题theme-dark，浅色主题theme-light');
 INSERT INTO `sys_config` VALUES (4, '账号自助-验证码开关', 'sys.account.captchaEnabled', 'true', 'Y', 'admin', '2024-06-13 16:06:37', '', NULL, '是否开启验证码功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES (5, '账号自助-是否开启用户注册功能', 'sys.account.registerUser', 'false', 'Y', 'admin', '2024-06-13 16:06:37', '', NULL, '是否开启注册用户功能（true开启，false关闭）');
 INSERT INTO `sys_config` VALUES (11, 'OSS预览列表资源开关', 'sys.oss.previewListResource', 'true', 'Y', 'admin', '2024-06-13 16:06:37', '', NULL, 'true:开启, false:关闭');
@@ -110,12 +107,6 @@ CREATE TABLE `sys_dept`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_dept
--- ----------------------------
-
-
-
--- ----------------------------
 -- Table structure for sys_dict_data
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_data`;
@@ -138,10 +129,6 @@ CREATE TABLE `sys_dict_data`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典数据表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_dict_data
--- ----------------------------
-
--- ----------------------------
 -- Table structure for sys_dict_type
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_dict_type`;
@@ -158,10 +145,6 @@ CREATE TABLE `sys_dict_type`  (
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE INDEX `dict_type`(`dict_type`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典类型表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_dict_type
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_logininfor
@@ -210,7 +193,7 @@ CREATE TABLE `sys_menu`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_menu
+-- Records of sys_menu (系统菜单 + WMS业务菜单)
 -- ----------------------------
 INSERT INTO `sys_menu` VALUES (1, '系统管理', 0, 110, 'system', NULL, '', 0, 0, 'M', '1', '1', '', 'system', 'admin', '2024-06-13 16:06:26', 'admin', '2024-08-20 13:45:48', '系统管理目录');
 INSERT INTO `sys_menu` VALUES (2, '系统监控', 0, 120, 'monitor', NULL, '', 0, 0, 'M', '1', '1', '', 'monitor', 'admin', '2024-06-13 16:06:26', 'admin', '2024-08-20 13:45:57', '系统监控目录');
@@ -334,10 +317,6 @@ CREATE TABLE `sys_notice`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '通知公告表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_notice
--- ----------------------------
-
--- ----------------------------
 -- Table structure for sys_oper_log
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_oper_log`;
@@ -409,15 +388,6 @@ CREATE TABLE `sys_oss_config`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '对象存储配置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_oss_config
--- ----------------------------
-INSERT INTO `sys_oss_config` VALUES (1, 'minio', 'ruoyi', 'ruoyi123', 'ruoyi', '', '127.0.0.1:9000', '', 'N', '', '1', '0', '', 'admin', '2024-06-13 16:06:38', 'admin', '2024-08-16 16:48:05', NULL);
-INSERT INTO `sys_oss_config` VALUES (2, 'qiniu', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'ruoyi', '', 's3-cn-north-1.qiniucs.com', '', 'N', '', '1', '0', '', 'admin', '2024-06-13 16:06:38', 'admin', '2024-06-13 16:06:38', NULL);
-INSERT INTO `sys_oss_config` VALUES (3, 'aliyun', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'ruoyi', '', 'oss-cn-beijing.aliyuncs.com', '', 'N', '', '1', '0', '', 'admin', '2024-06-13 16:06:38', 'admin', '2024-07-10 17:50:41', NULL);
-INSERT INTO `sys_oss_config` VALUES (4, 'qcloud', 'XXXXXXXXXXXXXXX', 'XXXXXXXXXXXXXXX', 'ruoyi-1250000000', '', 'cos.ap-beijing.myqcloud.com', '', 'N', 'ap-beijing', '1', '0', '', 'admin', '2024-06-13 16:06:38', 'admin', '2024-06-13 16:06:38', NULL);
-INSERT INTO `sys_oss_config` VALUES (5, 'image', 'ruoyi', 'ruoyi123', 'ruoyi', 'image', '127.0.0.1:9000', '', 'N', '', '1', '0', '', 'admin', '2024-06-13 16:06:38', 'admin', '2024-06-13 16:06:38', NULL);
-
--- ----------------------------
 -- Table structure for sys_post
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_post`;
@@ -434,11 +404,6 @@ CREATE TABLE `sys_post`  (
   `remark` varchar(500) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '岗位信息表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_post
--- ----------------------------
-INSERT INTO `sys_post` VALUES (1, 'ceo', '董事长', 1, '1', 'admin', '2024-06-13 16:06:25', '', NULL, '');
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -462,9 +427,6 @@ CREATE TABLE `sys_role`  (
   PRIMARY KEY (`role_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of sys_role
--- ----------------------------
 INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '1', '0', 'admin', '2024-06-13 16:06:26', '', NULL, '超级管理员');
 
 -- ----------------------------
@@ -486,10 +448,6 @@ CREATE TABLE `sys_role_menu`  (
   `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色和菜单关联表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_role_menu
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -518,10 +476,8 @@ CREATE TABLE `sys_user`  (
   PRIMARY KEY (`user_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of sys_user
--- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', 'Admin', 'sys_user', '', '18888888888', '0', '', '$2a$10$I3zzbeAIAcEptmK/L/77ie58NwvoaOfkjsDegd6cGrGOdMF.YH0cC', '1', '0', '', NULL, 'admin', '2024-06-13 16:06:25', 'admin', '2024-06-13 16:06:25', '管理员');
+-- admin 账号，密码: wuxiankafei@2026
+INSERT INTO `sys_user` VALUES (1, NULL, 'admin', 'Admin', 'sys_user', '', '', '0', '', '$2a$10$LhJdLpdo9164GaUFGm//KekgVCSOIfym2KN3PTndNe0J2/mpduA8W', '0', '0', '', NULL, 'admin', '2024-06-13 16:06:25', '', NULL, '管理员');
 
 -- ----------------------------
 -- Table structure for sys_user_post
@@ -534,11 +490,6 @@ CREATE TABLE `sys_user_post`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户与岗位关联表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of sys_user_post
--- ----------------------------
-INSERT INTO `sys_user_post` VALUES (1, 1);
-
--- ----------------------------
 -- Table structure for sys_user_role
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user_role`;
@@ -548,9 +499,6 @@ CREATE TABLE `sys_user_role`  (
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户和角色关联表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of sys_user_role
--- ----------------------------
 INSERT INTO `sys_user_role` VALUES (1, 1);
 
 -- ----------------------------
@@ -570,11 +518,7 @@ CREATE TABLE `wms_check_order`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920323943682050 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存盘点单据' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_check_order
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存盘点单据' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_check_order_detail
@@ -595,11 +539,7 @@ CREATE TABLE `wms_check_order_detail`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920323981430788 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存盘点单据详情' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_check_order_detail
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存盘点单据详情' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_inventory
@@ -616,11 +556,7 @@ CREATE TABLE `wms_inventory`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920324082094083 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_inventory
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_inventory_history
@@ -640,11 +576,7 @@ CREATE TABLE `wms_inventory_history`  (
   `order_type` int(11) NULL DEFAULT NULL COMMENT '操作类型',
   `create_time` datetime(3) NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920324157591555 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存记录' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_inventory_history
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_item
@@ -663,11 +595,7 @@ CREATE TABLE `wms_item`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1840308261127651331 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '物料' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_item
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '物料' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_item_brand
@@ -681,11 +609,7 @@ CREATE TABLE `wms_item_brand`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1828407291103842307 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品品牌表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_item_brand
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '商品品牌表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_item_category
@@ -702,11 +626,7 @@ CREATE TABLE `wms_item_category`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '更新者',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1840282771834667011 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '物料类型表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_item_category
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '物料类型表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_item_sku
@@ -730,11 +650,7 @@ CREATE TABLE `wms_item_sku`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1840308261463195650 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'sku信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_item_sku
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = 'sku信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_merchant
@@ -759,11 +675,7 @@ CREATE TABLE `wms_merchant`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1828354284882399234 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '往来单位' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_merchant
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '往来单位' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_movement_order
@@ -783,11 +695,7 @@ CREATE TABLE `wms_movement_order`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920257199722499 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '移库单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_movement_order
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '移库单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_movement_order_detail
@@ -807,11 +715,7 @@ CREATE TABLE `wms_movement_order_detail`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920257237471234 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存移动详情' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_movement_order_detail
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '库存移动详情' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_receipt_order
@@ -833,11 +737,7 @@ CREATE TABLE `wms_receipt_order`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920012030070786 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '入库单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_receipt_order
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '入库单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_receipt_order_detail
@@ -856,11 +756,7 @@ CREATE TABLE `wms_receipt_order_detail`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920012105568259 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '入库单详情' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_receipt_order_detail
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '入库单详情' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_shipment_order
@@ -882,11 +778,7 @@ CREATE TABLE `wms_shipment_order`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920133316759554 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '出库单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_shipment_order
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '出库单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_shipment_order_detail
@@ -905,11 +797,7 @@ CREATE TABLE `wms_shipment_order_detail`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1843920133354508290 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '出库单详情' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_shipment_order_detail
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '出库单详情' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for wms_warehouse
@@ -926,10 +814,6 @@ CREATE TABLE `wms_warehouse`  (
   `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '修改人',
   `update_time` datetime(3) NULL DEFAULT NULL COMMENT '修改时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1840317750635581442 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '仓库' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of wms_warehouse
--- ----------------------------
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '仓库' ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

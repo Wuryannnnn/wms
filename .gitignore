@@ -3,3 +3,4 @@
 .idea/
 .vscode/
 .claude/
+.github/workflows/deploy.yml
