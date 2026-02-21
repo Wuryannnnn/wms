@@ -13,7 +13,7 @@ echo "===== 1. 拉取最新代码 ====="
 git pull origin main
 
 echo "===== 2. 构建后端 JAR ====="
-cd "$PROJECT_DIR/wms-ruoyi"
+cd "$PROJECT_DIR/wms"
 mvn clean package -P prod -DskipTests -q
 echo "后端构建完成: $(ls -lh ruoyi-admin-wms/target/ruoyi-admin-wms.jar)"
 
