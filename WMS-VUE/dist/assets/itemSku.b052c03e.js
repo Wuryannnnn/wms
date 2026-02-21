@@ -1,0 +1,1 @@
+import{M as e}from"./index.6a3e9bd9.js";function r(t){return e({url:"/wms/itemSku/list",method:"get",params:t})}function u(t){return e({url:"/wms/itemSku/listNoPage",method:"get",params:t})}function s(t){return e({url:"/wms/itemSku/"+t,method:"delete"})}export{u as a,s as d,r as l};

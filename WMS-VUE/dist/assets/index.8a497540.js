@@ -1,0 +1,1 @@
+import{_ as s}from"./index.e3916969.js";import{r as n,o,c as t,g as l,h as c}from"./index.6a3e9bd9.js";const f={__name:"index",setup(u){const e=n("/xxl-job-admin");return(m,r)=>(o(),t("div",null,[l(c(s),{src:e.value,"onUpdate:src":r[0]||(r[0]=a=>e.value=a)},null,8,["src"])]))}};export{f as default};

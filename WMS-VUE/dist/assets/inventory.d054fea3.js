@@ -1,0 +1,1 @@
+import{M as t}from"./index.6a3e9bd9.js";function o(r){return t({url:"/wms/inventory/boardList/warehouse",method:"get",params:r})}function s(r){return t({url:"/wms/inventory/listNoPage",method:"get",params:r})}function a(r,e){return t({url:"/wms/inventory/boardList/"+e,method:"get",params:r})}export{o as a,s as b,a as l};
