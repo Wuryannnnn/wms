@@ -148,7 +148,7 @@ const skuSelectRef = ref(null)
 import {addCheckOrder, getCheckOrder, updateCheckOrder, check} from "@/api/wms/checkOrder";
 import {delCheckOrderDetail} from "@/api/wms/checkOrderDetail";
 import {listInventoryNoPage} from "@/api/wms/inventory";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessage} from "element-plus";
 import {useRoute} from "vue-router";
 import {useWmsStore} from '@/store/modules/wms'
 import {numSub, generateNo} from '@/utils/common'
@@ -406,12 +406,6 @@ const handleChangeQuantity = () => {
   form.value.totalQuantity = totalQuantity
 }
 
-const goSaasTip = () => {
-  ElMessageBox.alert('如需体验，请在公众号内回复：saas', '请去Saas版本体验', {
-    confirmButtonText: '确定'
-  })
-  return false
-}
 
 </script>
 

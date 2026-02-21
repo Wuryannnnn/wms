@@ -159,7 +159,7 @@
 import {computed, getCurrentInstance, onMounted, reactive, ref, toRef, toRefs, watch} from "vue";
 import {addMovementOrder, getMovementOrder, updateMovementOrder, movement} from "@/api/wms/movementOrder";
 import {delMovementOrderDetail} from "@/api/wms/movementOrderDetail";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessage} from "element-plus";
 import {useRoute} from "vue-router";
 import {useWmsStore} from '@/store/modules/wms'
 import {numSub, generateNo} from '@/utils/common'
@@ -425,12 +425,7 @@ const handleDeleteDetail = (row, index) => {
   const indexOfSelected = selectedInventory.value.findIndex(it => getWarehouseAndSkuKey(it) === getSourceWarehouseAndSkuKey(row))
   selectedInventory.value.splice(indexOfSelected, 1)
 }
-const goSaasTip = () => {
-  ElMessageBox.alert('如需体验，请在公众号内回复：saas', '请去Saas版本体验', {
-    confirmButtonText: '确定'
-  })
-  return false
-}
+
 </script>
 
 <style lang="scss" scoped>

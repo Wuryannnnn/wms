@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-const url = ref('https://gitee.com/zccbbg/ruoyi-wms-service');
+const url = ref('https://github.com/Wuryannnnn/wms');
 
 function goto() {
   window.open(url.value)

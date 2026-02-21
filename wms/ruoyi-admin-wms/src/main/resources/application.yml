@@ -214,9 +214,9 @@ springdoc:
     version: '版本号: ${revision}'
     # 作者信息
     contact:
-      name: zcc
-      email: zccbbg@qq.com
-      url: https://gitee.com/zccbbg/ruoyi-wms
+      name: admin
+      email: ''
+      url: https://github.com/Wuryannnnn/wms
   components:
     # 鉴权方式配置
     security-schemes:

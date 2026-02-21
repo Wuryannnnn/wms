@@ -9,7 +9,7 @@
     <version>${revision}</version>
 
     <name>ruoyi-wms</name>
-    <url>https://gitee.com/zccbbg/wms-ruoyi</url>
+    <url>https://github.com/Wuryannnnn/wms</url>
     <description>ruoyi-wms后台管理系统</description>
 
     <properties>

@@ -158,7 +158,7 @@
 <script setup name="ReceiptOrderEdit">
 import {computed, getCurrentInstance, onMounted, reactive, ref, toRef, toRefs, watch} from "vue";
 import {addReceiptOrder, getReceiptOrder, updateReceiptOrder, warehousing} from "@/api/wms/receiptOrder";
-import {ElMessage, ElMessageBox} from "element-plus";
+import {ElMessage} from "element-plus";
 import SkuSelect from "../../../components/SkuSelect.vue";
 import {useRoute} from "vue-router";
 import {useWmsStore} from '@/store/modules/wms'
@@ -421,12 +421,7 @@ const handleDeleteDetail = (row, index) => {
   const indexOfSelected = selectedSku.value.findIndex(it => row.itemSku.id=== it.id)
   selectedSku.value.splice(indexOfSelected, 1)
 }
-const goSaasTip = () => {
-  ElMessageBox.alert('如需体验，请在公众号内回复：saas', '请去Saas版本体验', {
-    confirmButtonText: '确定'
-  })
-  return false
-}
+
 </script>
 
 <style lang="scss" scoped>
