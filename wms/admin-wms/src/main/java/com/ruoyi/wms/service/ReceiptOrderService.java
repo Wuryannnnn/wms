@@ -132,6 +132,16 @@ public class ReceiptOrderService {
             updateByBo(bo);
         }
 
+        // 兜底: detail 没显式带 warehouseId 时, 用顶层 bo.warehouseId 填充,
+        // 否则 inventoryService.add 会把 inventory 行写成 (sku_id, warehouse_id=NULL),
+        // 后续按 (sku_id, warehouse_id) 维度的扣减/查询都找不到这行库存.
+        if (bo.getWarehouseId() != null && CollUtil.isNotEmpty(bo.getDetails())) {
+            bo.getDetails().forEach(d -> {
+                if (d.getWarehouseId() == null) {
+                    d.setWarehouseId(bo.getWarehouseId());
+                }
+            });
+        }
 
         // 3.增加库存
         inventoryService.add(bo.getDetails());

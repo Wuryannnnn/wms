@@ -185,6 +185,15 @@ public class ShipmentOrderService {
             updateByBo(bo);
         }
 
+        // 兜底: detail 没显式带 warehouseId 时, 用顶层 bo.warehouseId 填充,
+        // 否则 inventoryService.subtract 按 (sku_id, NULL) 找不到库存行, 报"库存不足".
+        if (bo.getWarehouseId() != null && CollUtil.isNotEmpty(bo.getDetails())) {
+            bo.getDetails().forEach(d -> {
+                if (d.getWarehouseId() == null) {
+                    d.setWarehouseId(bo.getWarehouseId());
+                }
+            });
+        }
 
         // 3.更新库存：Inventory表
         inventoryService.subtract(bo.getDetails());
