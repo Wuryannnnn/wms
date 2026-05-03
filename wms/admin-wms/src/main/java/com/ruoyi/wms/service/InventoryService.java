@@ -2,6 +2,7 @@ package com.ruoyi.wms.service;
 
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -195,33 +196,36 @@ public class InventoryService extends ServiceImpl<InventoryMapper, Inventory> {
     }
 
     /**
-     * 扣减库存
-     * @param details
+     * 扣减库存 —— 使用原子 SQL (UPDATE ... WHERE quantity >= need) 防并发超卖.
+     * 依赖 InnoDB 行锁, 无需 Redis / 应用层锁.
      */
     @Transactional
     public void subtract(List<? extends BaseOrderDetailBo> details) {
-        List<Inventory> updateList = new LinkedList<>();
-        details.forEach(shipmentOrderDetailBo -> {
-            LambdaQueryWrapper<Inventory> wrapper = Wrappers.lambdaQuery();
-            wrapper.eq(Inventory::getWarehouseId, shipmentOrderDetailBo.getWarehouseId());
-            wrapper.eq(Inventory::getSkuId, shipmentOrderDetailBo.getSkuId());
-            Inventory result = inventoryMapper.selectOne(wrapper);
-            if(result==null){
-                ItemSkuMapVo itemSkuMapVo = itemSkuService.queryItemSkuMapVo(shipmentOrderDetailBo.getSkuId());
-                throw new ServiceException("库存不足", HttpStatus.CONFLICT,itemSkuMapVo.getItem().getItemName()+"（"+itemSkuMapVo.getItemSku().getSkuName()+"）库存不足，当前库存：0");
+        for (BaseOrderDetailBo d : details) {
+            BigDecimal need = d.getQuantity();
+            // 先取快照 (仅用于 before/after 记账; 并发安全由下面的 UPDATE 保证)
+            LambdaQueryWrapper<Inventory> q = Wrappers.lambdaQuery();
+            q.eq(Inventory::getWarehouseId, d.getWarehouseId());
+            q.eq(Inventory::getSkuId, d.getSkuId());
+            Inventory snapshot = inventoryMapper.selectOne(q);
+            BigDecimal before = snapshot != null ? snapshot.getQuantity() : BigDecimal.ZERO;
+
+            // 原子扣减: 行锁 + 条件约束, quantity < need 时 affected = 0
+            LambdaUpdateWrapper<Inventory> u = Wrappers.lambdaUpdate();
+            u.eq(Inventory::getWarehouseId, d.getWarehouseId());
+            u.eq(Inventory::getSkuId, d.getSkuId());
+            u.ge(Inventory::getQuantity, need);
+            u.setSql("quantity = quantity - " + need.toPlainString());
+            int affected = inventoryMapper.update(null, u);
+            if (affected == 0) {
+                ItemSkuMapVo itemSkuMapVo = itemSkuService.queryItemSkuMapVo(d.getSkuId());
+                throw new ServiceException("库存不足", HttpStatus.CONFLICT,
+                        itemSkuMapVo.getItem().getItemName() + "（" + itemSkuMapVo.getItemSku().getSkuName()
+                                + "）库存不足，当前库存：" + before);
             }
-            BigDecimal beforeQuantity = result.getQuantity();
-            BigDecimal afterQuantity = beforeQuantity.subtract(shipmentOrderDetailBo.getQuantity());
-            if(afterQuantity.signum() == -1){
-                ItemSkuMapVo itemSkuMapVo = itemSkuService.queryItemSkuMapVo(shipmentOrderDetailBo.getSkuId());
-                throw new ServiceException("库存不足", HttpStatus.CONFLICT,itemSkuMapVo.getItem().getItemName()+"（"+itemSkuMapVo.getItemSku().getSkuName()+"）库存不足，当前库存："+ beforeQuantity);
-            }
-            shipmentOrderDetailBo.setBeforeQuantity(beforeQuantity);
-            shipmentOrderDetailBo.setAfterQuantity(afterQuantity);
-            result.setQuantity(afterQuantity);
-            updateList.add(result);
-        });
-        updateBatchById(updateList);
+            d.setBeforeQuantity(before);
+            d.setAfterQuantity(before.subtract(need));
+        }
     }
 
     public boolean existsByWarehouseId(Long warehouseId) {

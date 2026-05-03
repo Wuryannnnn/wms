@@ -161,19 +161,31 @@ public class ShipmentOrderService {
     }
 
     /**
-     * 出库
-     * @param bo
+     * 出库 (幂等): 相同 orderNo 的请求只会扣一次料.
+     * Sell 侧网络抖动/重试时防止双扣.
      */
     @Transactional
     public void shipment(ShipmentOrderBo bo) {
         // 1.校验商品明细不能为空！
         validateBeforeShipment(bo);
-        // 2. 保存入库单和入库单明细
+
+        // 幂等: 同 orderNo 已存在 → 直接复用 id, 不重复扣减
+        if (Objects.isNull(bo.getId()) && StringUtils.isNotBlank(bo.getOrderNo())) {
+            Long existingId = queryIdByOrderNo(bo.getOrderNo());
+            if (existingId != null) {
+                bo.setId(existingId);
+                return;
+            }
+        }
+
+        // 2. 保存出库单和出库单明细
         if (Objects.isNull(bo.getId())) {
             insertByBo(bo);
         } else {
             updateByBo(bo);
         }
+
+
         // 3.更新库存：Inventory表
         inventoryService.subtract(bo.getDetails());
 

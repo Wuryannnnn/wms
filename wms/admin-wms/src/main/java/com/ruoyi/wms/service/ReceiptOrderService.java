@@ -132,6 +132,7 @@ public class ReceiptOrderService {
             updateByBo(bo);
         }
 
+
         // 3.增加库存
         inventoryService.add(bo.getDetails());
 

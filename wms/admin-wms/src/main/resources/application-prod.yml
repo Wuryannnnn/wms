@@ -37,6 +37,7 @@ redisson:
   threads: 4
   nettyThreads: 8
   singleServerConfig:
+    address: redis://redis:6379
     clientName: TheInfiniteCafe
     connectionMinimumIdleSize: 8
     connectionPoolSize: 32
@@ -47,6 +48,10 @@ redisson:
 --- # mail 邮件发送（生产环境默认关闭）
 mail:
   enabled: false
+
+--- # 验证码 (允许程序化登录, 由 ENV CAPTCHA_ENABLE 覆盖)
+captcha:
+  enable: ${CAPTCHA_ENABLE:false}
 
 --- # sms 短信（生产环境默认关闭）
 sms:

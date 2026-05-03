@@ -8,7 +8,7 @@ services:
       MYSQL_CHARSET: utf8mb4
       MYSQL_COLLATION: utf8mb4_general_ci
     ports:
-      - "3306:3306"
+      - "3307:3306"  # host 3307 → container 3306 (避开本机 mysql)
     volumes:
       - mysql-data:/var/lib/mysql
       - ./wms/script/sql/wms.sql:/docker-entrypoint-initdb.d/wms.sql:ro
@@ -36,13 +36,14 @@ services:
 
   backend:
     build:
-      context: ./wms/ruoyi-admin-wms
+      context: ./wms/admin-wms
       dockerfile: Dockerfile
     container_name: wms-backend
     environment:
       - SPRING_PROFILES_ACTIVE=prod
+      - CAPTCHA_ENABLE=false  # 关掉验证码, 允许咖啡店程序化登录
     ports:
-      - "8080:8080"
+      - "8081:8080"  # host 8081 → container 8080 (避开咖啡店 8080)
     depends_on:
       mysql:
         condition: service_healthy
